@@ -73,13 +73,33 @@
             android:layout_marginTop="4dp"
             android:background="@color/shimmer_placeholder" />
 
-        <View
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="6dp"
-            android:background="@color/shimmer_placeholder" />
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/shimmer_image_bg" />
+
+            <View
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/shimmer_image_bg" />
+            <View
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/shimmer_image_bg" />
+
+
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

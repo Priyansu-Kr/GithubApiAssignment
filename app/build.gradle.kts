@@ -76,4 +76,10 @@ dependencies {
     //shimmer
     implementation("com.facebook.shimmer:shimmer:0.5.0")
 
+    //worker
+    implementation("androidx.work:work-runtime-ktx:2.11.2")
+    implementation("androidx.hilt:hilt-work:1.3.0")
+    ksp("androidx.hilt:hilt-compiler:1.3.0")
+
+
 }

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Github Assignment</string>
+    <string name="contributors">contributors</string>
 </resources>

@@ -34,6 +34,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var connectivityObserver: ConnectivityObserver
+    private var lastRefreshTime = 0L
+    private val refresh_difference = 30_000L
     
     private val githubAdapter by lazy {
         GithubAdapter { item ->
@@ -70,6 +72,19 @@ class MainActivity : AppCompatActivity() {
             viewModel.retry()
         }
         binding.swipeRefresh.setOnRefreshListener {
+
+            val currentTime = System.currentTimeMillis()
+
+            if (currentTime - lastRefreshTime < refresh_difference) {
+                binding.swipeRefresh.isRefreshing = false
+                Toast.makeText(
+                    this,
+                    "Please wait 30s before refreshing again",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnRefreshListener
+            }
+            lastRefreshTime = currentTime
             viewModel.manualRefresh()
         }
         binding.ivSearchIcon.setOnClickListener {

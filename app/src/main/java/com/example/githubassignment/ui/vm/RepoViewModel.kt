@@ -1,6 +1,5 @@
 package com.example.githubassignment.ui.vm
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.githubassignment.data.local.room.GithubRepoEntity
@@ -44,13 +43,17 @@ class RepoViewModel @Inject constructor(
     private fun initialFetch() {
         viewModelScope.launch {
             try {
-                Log.d("mainActivity", "${repo.isCacheExpired()}" )
-                if (repo.isCacheExpired()) {
-                    _listData.value = UiState.Loading
+                val expired = repo.isCacheExpired()
+                if (expired) {
+                    if (originalList.isEmpty()) {
+                        _listData.value = UiState.Loading
+                    }
                     repo.refreshRepos()
                 }
+                else{
+                    observeRepos()
+                }
             } catch (e: Exception) {
-                Log.e("RepoViewModel", "Error in initial fetch", e)
                 if (_listData.value !is UiState.Success) {
                     _listData.value = UiState.Error(e.message ?: "Failed to load data")
                 }
@@ -64,7 +67,6 @@ class RepoViewModel @Inject constructor(
                 _listData.value = UiState.Loading
                 repo.refreshRepos()
             } catch (e: Exception) {
-                Log.e("RepoViewModel", "Error in manual refresh", e)
                 _listData.value = UiState.Error(e.message ?: "Failed to refresh data")
             }
         }
@@ -75,7 +77,6 @@ class RepoViewModel @Inject constructor(
             try {
                 repo.updateFavourite(itemId.toLong())
             } catch (e: Exception) {
-                Log.e("RepoViewModel", "Error updating favourite", e)
             }
         }
     }

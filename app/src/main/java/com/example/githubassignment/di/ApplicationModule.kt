@@ -28,7 +28,9 @@ class ApplicationModule {
                 val request = chain.request().newBuilder()
                     .addHeader("User-Agent", "GithubAssignmentApp")
                     .build()
-                chain.proceed(request)
+                val response = chain.proceed(request)
+                
+                response
             }
             .build()
     }
@@ -56,7 +58,8 @@ class ApplicationModule {
             context,
             GithubDatabase::class.java,
             "github_db.db"
-        ).build()
+        ).fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides

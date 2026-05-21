@@ -30,4 +30,6 @@ interface GithubDao {
     @Query("SELECT id FROM github_repos WHERE isFavourite = 1")
     suspend fun getFavouriteIds(): List<Long>
 
+    @Query("SELECT * FROM github_repos WHERE id = :repoId")
+    suspend fun getRepoById(repoId: Long): GithubRepoEntity?
 }
